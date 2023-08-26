@@ -1,0 +1,32 @@
+import numpy as np
+num_students = int(input("Enter the number of students: "))
+student_names = [input(f"Enter the name of student {i+1}: ") for i in range(num_students)]
+
+num_subjects = int(input("Enter the number of subjects: "))
+subject_names = [input(f"Enter the name of subject {j+1}: ") for j in range(num_subjects)]
+marks_array = np.zeros((num_students, num_subjects))
+for i in range(num_students):
+    for j in range(num_subjects):
+        marks_array[i, j] = float(input(f"Enter marks for {student_names[i]} in {subject_names[j]}: "))
+total_marks = np.sum(marks_array, axis=1)
+percentages = (total_marks / (num_subjects * 100)) * 100
+def calculate_grade(percentage):
+    if percentage >= 90:
+        return "A+"
+    elif percentage >= 80:
+        return "A"
+    elif percentage >= 70:
+        return "B+"
+    elif percentage >= 60:
+        return "B"
+    elif percentage >= 50:
+        return "C"
+    else:
+        return "F"
+
+grades = [calculate_grade(percentage) for percentage in percentages]
+print("\nStudent\t\t\tSubject\t\t\tTotal Marks\t\t\tPercentage\t\t\tGrade")
+
+for i in range(num_students):
+    for j in range(num_subjects):
+        print(f"{student_names[i]}\t\t\t{subject_names[j]}\t\t\t{total_marks[i]}\t\t\t\t{percentages[i]:.2f}%\t\t\t\t{grades[i]}")
